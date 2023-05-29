@@ -1,0 +1,270 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S famous restaurant in Thailand.</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+
+    <!-- W3 CSS template -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <style>
+    #mapid {
+    height: 800px;
+    }
+    </style>
+
+  <!-- แบ่งหน้าจอ -->
+  <div class="w3-row">
+    <div id="mapid" class="w3-half"></div>
+    <div id="content" class="w3-half">
+    <table class="w3-table w3-striped">
+    <tr>
+    <th>ชื่อร้าน</th>
+    <th>ประเภท</th>
+    <th>คะแนน</th>
+    </tr>
+    <tr>
+    <td>ชื่อร้าน</td>
+    <td>ประเภท</td>
+    <td>คะแนน</td>
+    </tr>
+    </table>
+    </div>
+    </div>
+
+
+
+</head>
+<!-- map control -->
+<script>
+var map = L.map("mapid").setView([15.22268943233079, 101.0036535043746], 8);
+
+ var osm = L.tileLayer(
+ "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+ ).addTo(map);
+ var gsat = L.tileLayer(
+ "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+ ).addTo(map);
+
+ var baseMaps = {
+ OSM: osm,
+ GoogleSat: gsat,
+ };
+
+//add data
+
+var tourpoint = 
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Krua Apsorn @Dinso",
+        "type": "restaurant",
+        "level": 10
+      },
+      "geometry": {
+        "coordinates": [
+        100.50147101001848
+        13.75740638746211
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Supanniga Eating Room",
+        "type": "restaurant",
+        "level": 10
+      },
+      "geometry": {
+        "coordinates": [
+        100.49202957436701,
+        13.745727686790374
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ruen Mallika",
+        "type": "restaurant",
+        "level": 10
+      },
+      "geometry": {
+        "coordinates": [
+        100.56311985134904,
+        13.725295756315363
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Methavalai Sorndaeng",
+        "type": "restaurant",
+        "level": 10
+      },
+      "geometry": {
+        "coordinates": [
+        100.50213281472215,
+        13.756863317816428
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Baan Khanitha & Gallery",
+        "type": "restaurant",
+        "level": 10
+      },
+      "geometry": {
+        "coordinates": [
+        100.53556280643275,
+        13.72659495677983
+        ],
+        "type": "Point"
+      },
+      "id": 4
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "At-Ta-Rote",
+        "type": "restaurant",
+        "level": 10
+      },
+      "geometry": {
+        "coordinates": [
+        100.56610143090863,
+        13.753383376728879
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "LukKai Thong Restaurant in EmQuartier",
+        "type": "restaurant",
+        "level": 8
+      },
+      "geometry": {
+        "coordinates": [
+        100.56404053049263,
+        13.74527024002413
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sala Rattanakosin",
+        "type": "restaurant",
+        "level": 9
+      },
+      "geometry": {
+        "coordinates": [
+        100.49083649367795,
+        13.74541658872155
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "กิน อยู่ ได้ (kin yoo dai)",
+        "type": "restaurant",
+        "level": 9
+      },
+      "geometry": {
+        "coordinates": [
+        100.48852673785909,
+        13.879531282590126
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Praya Dining",
+        "type": "restaurant",
+        "level": 8
+      },
+      "geometry": {
+        "coordinates": [
+        100.49358382621406,
+        13.766033851886911
+        ],
+        "type": "Point"
+      }
+    }
+  ]
+}
+
+var tourLayer = L.geoJSON(tourpoint, {
+ pointToLayer: function (feature, latlng) {
+ return L.marker(latlng).bindPopup(feature.properties.name);
+ },
+ onEachFeature: function (feature, layer) {
+ layer.on("mouseover", function () {
+ document
+ .getElementById(feature.properties.name)
+ .classList.add("w3-red");
+ });
+
+ layer.on("mouseout", function () {
+ document
+ .getElementById(feature.properties.name)
+ .classList.remove("w3-red");
+ });
+ },
+ }).addTo(map);
+
+ var cont = "";
+ cont += "<table class='w3-table w3-striped'>";
+ cont += "<tr>";
+ cont += "<th>ชื่อ</th>";
+ cont += "<th>ประเภท</th>";
+ cont += "<th>คะแนน</th>";
+ cont += "</tr>";
+ for (let i in tourpoint.features) {
+ cont += "<tr id=" + tourpoint.features[i].properties.name + ">";
+ cont += "<td>" + tourpoint.features[i].properties.name + "</td>";
+ cont += "<td>" + tourpoint.features[i].properties.type + "</td>";
+ cont += "<td>" + tourpoint.features[i].properties.level + "</td>";
+ cont += "</tr>";
+ }
+ cont += "</table>";
+ console.log(cont);
+ document.getElementById("content").innerHTML = cont;
+
+
+
+
+ var overlays = {ชื่อร้าน: tourLayer};
+ //add leyer control
+ L.control.layers(baseMaps, overlays).addTo(map);
+</script>
+
+<body>
+
+</body>
+</html>
